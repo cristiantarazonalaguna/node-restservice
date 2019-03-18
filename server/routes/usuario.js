@@ -3,9 +3,13 @@ const express = require('express');
 const app = express();
 const Usuario = require('../modelos/usuario');
 const bodyParser = require('body-parser');
+const {verificaToken} = require('../middlewares/autenticacion');
+const {verificaAdmin_Role} = require('../middlewares/autenticacion');
 const bcrypt = require('bcrypt');
 const _ = require('underscore');
-app.get('/usuario',function(req,res){
+app.get('/usuario',verificaToken,function(req,res){
+
+    
    let desde = req.query.desde || 0 ;
    let limite = req.query.limite || 5;
    desde = Number(desde);
@@ -37,7 +41,7 @@ app.get('/usuario',function(req,res){
 
 })
 const urlencodedParser = bodyParser.urlencoded({extended:false});
-app.post('/usuario',urlencodedParser,(req,res)=>{
+app.post('/usuario',[verificaToken,verificaAdmin_Role],urlencodedParser,(req,res)=>{
     let usuario = new Usuario({
         nombre:req.body.nombre,
         email:req.body.email,
@@ -62,7 +66,7 @@ app.post('/usuario',urlencodedParser,(req,res)=>{
     //res.status(200).send(req.body);
 })
 
-app.put('/usuario/:id',urlencodedParser,(req,res)=>{
+app.put('/usuario/:id',[verificaToken,verificaAdmin_Role],urlencodedParser,(req,res)=>{
     let id = req.params.id;
     let body = _.pick(req.body,['nombre','email','img','role','estado']);
 
@@ -82,10 +86,9 @@ app.put('/usuario/:id',urlencodedParser,(req,res)=>{
     
 })
 
-app.delete('/usuario/:id',urlencodedParser,(req,res)=>{
+app.delete('/usuario/:id',[verificaToken,verificaAdmin_Role],(req,res)=>{
 
     let id = req.params.id;
-    req.body.estado = false;
     let cambia={
         estado:false
     }
