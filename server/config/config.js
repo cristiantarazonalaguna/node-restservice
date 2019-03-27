@@ -23,6 +23,12 @@ process.env.NODE_ENV = process.env.NODE_ENV || 'dev'
 process.env.CADUCIDAD_TOKEN = 60*60*24*30;
 
 //==================
+//Google Client ID
+//==================
+
+process.env.CLIENT_ID = process.env.CLIENT_ID || '1076505276122-ijlklods8io8uq077l688fbga720sv0m.apps.googleusercontent.com'
+
+//==================
 //SEED de autenticación
 //==================
 
@@ -41,3 +47,4 @@ module.exports={
     port,
     urlDB
 }
+

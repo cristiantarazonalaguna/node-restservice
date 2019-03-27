@@ -13,7 +13,12 @@ npm update ##### Se usa para actualizar todos los paquetes actualizados
 npm install jwt #### Json web token
 
 ## esto es para crear variables de entotno para ocultar la informacion 
-primero para saber cuales son nuestras bvariables de entorno colocamos el siguiente comando:
+primero para saber cuales son nuestras variables de entorno colocamos el siguiente comando:
 heroku config
 para crear colocamos lo siguiente:
 heroku config:set SEED='Este-es-el-seed-produccion'
+
+######3Para crear un tag en github
+
+colocamos el conado git tag -a v0.1.0 -m "mensaje"
+Luego hacemos push: git push --tags
